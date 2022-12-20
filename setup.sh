@@ -26,17 +26,13 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
 
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-zsh
-
-source ~/.zshrc
+#source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 yay -S nvm
 
-nvm install stable
+nvm install 16.2.0
 
-yay -S yarn
+npm install --global yarn
 
 yay -S consolas-font
 
@@ -52,5 +48,10 @@ echo "Host *
 
 cat ~/.ssh/id_rsa.pub
 
+git config --global user.email ***
+git config --global user.name ***                                                                                                                                            
+
 # ssh -T git@github.com -vvv
+# zsh
+# source ~/.zshrc
 
