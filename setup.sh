@@ -57,6 +57,8 @@ cat ~/.ssh/id_rsa.pub
 
 gsettings set org.gnome.desktop.interface enable-animations false
 
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark 
+
 # ssh -T git@github.com -vvv
 # zsh
 # source ~/.zshrc
