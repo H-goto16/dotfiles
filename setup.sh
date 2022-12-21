@@ -52,8 +52,10 @@ echo "Host *
 
 cat ~/.ssh/id_rsa.pub
 
-git config --global user.email ***
-git config --global user.name ***                                                                                                                                            
+# git config --global user.email ***
+# git config --global user.name *** 
+
+gsettings set org.gnome.desktop.interface enable-animations false
 
 # ssh -T git@github.com -vvv
 # zsh
