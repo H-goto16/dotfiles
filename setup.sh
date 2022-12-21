@@ -30,6 +30,10 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosugges
 
 yay -S nvm
 
+source /usr/share/nvm/init-nvm.sh
+
+echo 'source /usr/share/nvm/init-nvm.sh' >> ~/.bashrc
+
 nvm install 16.2.0
 
 npm install --global yarn
