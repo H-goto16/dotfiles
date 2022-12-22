@@ -40,7 +40,7 @@ npm install --global yarn
 
 yay -S consolas-font
 
-cd ~/.ssh
+mkdir ~/.ssh && cd $_
 
 ssh-keygen -t rsa
 
@@ -54,6 +54,14 @@ cat ~/.ssh/id_rsa.pub
 
 # git config --global user.email ***
 # git config --global user.name *** 
+
+sudo pacman -S gnome
+
+touch ~/.xinitrc
+
+echo "export XDG_SESSION_TYPE=x11
+export GDK_BACKEND=x11
+exec gnome-session" >> ~/.xinitrc
 
 gsettings set org.gnome.desktop.interface enable-animations false
 
