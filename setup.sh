@@ -1,3 +1,8 @@
+echo -n "Input git Name : "
+read gitName
+echo -n "Input git Email : "
+read gitEmail
+
 sudo pacman -Syu
 
 sudo pacman -S git
@@ -55,10 +60,13 @@ echo "Host *
 
 cat ~/.ssh/id_rsa.pub
 
-# git config --global user.email ***
-# git config --global user.name *** 
+git config --global user.email $gitEmail
+git config --global user.name $gitName
+
+echo "Select 7 14 27 28"
 
 sudo pacman -S gnome
+
 
 touch ~/.xinitrc
 
@@ -71,6 +79,8 @@ sudo pacman -S fcitx5-im fcitx5-mozc
 gsettings set org.gnome.desktop.interface enable-animations false
 
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark 
+
+sudo cp ./environment /etc/environment
 
 # ssh -T git@github.com -vvv
 # zsh
