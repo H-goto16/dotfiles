@@ -66,6 +66,8 @@ echo "export XDG_SESSION_TYPE=x11
 export GDK_BACKEND=x11
 exec gnome-session" >> ~/.xinitrc
 
+sudo pacman -S fcitx5-im fcitx5-mozc
+
 gsettings set org.gnome.desktop.interface enable-animations false
 
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark 
