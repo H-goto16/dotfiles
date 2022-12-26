@@ -27,14 +27,12 @@ git clone https://github.com/H-goto16/zshrc.git
 
 cp zshrc/.zshrc ~/
 
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
-
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 
 #source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
-echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
+sudo pacman -S zsh-syntax-highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 yay -S nvm
 
@@ -58,7 +56,7 @@ echo "Host *
     IPQoS=0x00" >> ~/.ssh/config
 
 
-cat ~/.ssh/id_rsa.pub
+
 
 git config --global user.email $gitEmail
 git config --global user.name $gitName
@@ -66,7 +64,6 @@ git config --global user.name $gitName
 echo "Select 7 14 27 28"
 
 sudo pacman -S gnome
-
 
 touch ~/.xinitrc
 
@@ -80,7 +77,9 @@ gsettings set org.gnome.desktop.interface enable-animations false
 
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark 
 
-sudo cp ./environment /etc/environment
+sudo cp ~/ArchLinuxSetUp/environment /etc/environment
+
+cat ~/.ssh/id_rsa.pub
 
 # ssh -T git@github.com -vvv
 # zsh
