@@ -21,7 +21,7 @@ yay -S visual-studio-code-bin
 
 sudo pacman -S zsh
 
-chsh -s /bin/zsh
+# chsh -s /bin/zsh
 
 git clone https://github.com/H-goto16/zshrc.git
 
@@ -29,10 +29,10 @@ cp zshrc/.zshrc ~/
 
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 
-#source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 sudo pacman -S zsh-syntax-highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 yay -S nvm
 
@@ -68,21 +68,21 @@ rm ~/.poshthemes/themes.zip
 git config --global user.email $gitEmail
 git config --global user.name $gitName
 
-echo "Select 7 14 27 28"
+#echo "Select 7 14 27 28"
 
-sudo pacman -S gnome
+#sudo pacman -S gnome
 
-touch ~/.xinitrc
+#touch ~/.xinitrc
 
-echo "export XDG_SESSION_TYPE=x11
-export GDK_BACKEND=x11
-exec gnome-session" >> ~/.xinitrc
+#echo "export XDG_SESSION_TYPE=x11
+#export GDK_BACKEND=x11
+#exec gnome-session" >> ~/.xinitrc
 
 sudo pacman -S fcitx5-im fcitx5-mozc
 
-gsettings set org.gnome.desktop.interface enable-animations false
+#gsettings set org.gnome.desktop.interface enable-animations false
 
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark 
+#gsettings set org.gnome.desktop.interface color-scheme prefer-dark 
 
 sudo cp ~/ArchLinuxSetUp/environment /etc/environment
 
