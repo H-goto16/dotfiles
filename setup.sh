@@ -48,3 +48,5 @@ sudo pacman -S fcitx5-im fcitx5-mozc
 sudo cp ~/ArchLinuxSetUp/environment /etc/environment
 
 cat ~/.ssh/id_rsa.pub
+
+cp /etc/X11/xinit/xserverrc ~/.xserverrc
