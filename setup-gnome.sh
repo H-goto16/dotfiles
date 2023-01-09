@@ -1,4 +1,4 @@
-echo "select 7 14"
+echo "Select 7 14 27 28"
 
 sudo pacman -S gnome
 
