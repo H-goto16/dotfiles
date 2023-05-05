@@ -25,8 +25,6 @@ echo "Host *
 git config --global user.email $gitEmail
 git config --global user.name $gitName
 
-sudo pacman -S fcitx5-im fcitx5-mozc
-
 sudo cp ~/ArchLinuxSetUp/fcitx/environment /etc/environment
 
 cp /etc/X11/xinit/xserverrc ~/.xserverrc
