@@ -1,3 +1,5 @@
 google-chrome
 visual-studio-code-bin
+slack-desktop
+spotify
 consolas-font

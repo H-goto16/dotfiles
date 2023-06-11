@@ -1,0 +1,7 @@
+gnome-browser-connector
+gnome-session
+gnome-console
+gnome-control-center
+gnome-keyring
+gnome-shell
+gnome-shell-extensions

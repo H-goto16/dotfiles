@@ -1,1 +1,3 @@
-pacman -S --needed $(comm -12 <(pacman -Slq | sort) <(sort shell.txt))
+sudo pacman -Syu --needed - < pkglist/shell.txt --noconfirm
+
+chsh -s /usr/bin/fish
