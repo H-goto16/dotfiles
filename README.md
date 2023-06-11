@@ -1,10 +1,7 @@
-# Arch Linux SetUp
+# dotfiles
 
-## Usage
-
-```sh
-sudo pacman -S git
-git clone https://github.com/H-goto16/ArchLinuxSetUp.git
 ```
-
-Using `archinstall` command and select `xorg` .
+sudo pacman -S git
+git clone https://github.com/H-goto16/dotfiles.git
+sh full-setup.sh
+```
