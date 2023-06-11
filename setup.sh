@@ -1,33 +1,33 @@
-echo -n "Input git Name : "
-read gitName
-echo -n "Input git Email : "
-read gitEmail
+#!/bin/bash
 
-sudo pacman -Syu
+# echo -n "Input git Name: "
+# read gitName
+# echo -n "Input git Email: "
+# read gitEmail
 
-sudo pacman -S --needed $(comm -12 <(pacman -Slq | sort) <(sort base.txt))
+sudo pacman -Syu --needed - < pkglist/base.txt --noconfirm
 
 git clone https://aur.archlinux.org/yay.git
 cd yay
-makepkg -si
+makepkg -si --noconfirm
 
-yay -S --needed $(comm -12 <(pacman -Slq | sort) <(sort app.txt))
+yay -S - < "$(dirname "${BASH_SOURCE[0]}")/pkglist/app.txt" --noconfirm
 
-mkdir ~/.ssh && cd $_
 
-ssh-keygen -t rsa
+# mkdir -p ~/.ssh && cd ~/.ssh
 
-touch ~/.ssh/config
+# ssh-keygen -t rsa
 
-echo "Host *
-    IPQoS=0x00" >> ~/.ssh/config
+# touch ~/.ssh/config
 
-git config --global user.email $gitEmail
-git config --global user.name $gitName
+# echo "Host *
+#     IPQoS=0x00" >> ~/.ssh/config
 
-sudo cp ~/ArchLinuxSetUp/fcitx/environment /etc/environment
+# git config --global user.email "$gitEmail"
+# git config --global user.name "$gitName"
 
-cp /etc/X11/xinit/xserverrc ~/.xserverrc
+# sudo cp ~/dotfiles/fcitx/environment /etc/environment
 
-cat ~/.ssh/id_rsa.pub
+# cp /etc/X11/xinit/xserverrc ~/.xserverrc
 
+# cat ~/.ssh/id_rsa.pub

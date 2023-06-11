@@ -1,0 +1,1 @@
+sudo pacman -Syu --needed - < pkglist/gnome.txt --noconfirm
