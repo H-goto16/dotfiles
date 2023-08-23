@@ -1,6 +1,9 @@
-git
 noto-fonts
 noto-fonts-cjk
+noto-fonts-emoji
+noto-fonts-extra
 fcitx5-im
 fcitx5-mozc
-nvm
+xclip
+nautilus
+kitty
