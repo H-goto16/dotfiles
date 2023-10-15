@@ -17,7 +17,7 @@ git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si --noconfirm
 
-yay -S - < pkglist/app.txt --noconfirm
+yay -S -< ./pkglist/app.txt --noconfirm
 
 mkdir -p ~/.ssh && cd ~/.ssh
 
@@ -32,5 +32,4 @@ sudo cp ~/dotfiles/fcitx/environment /etc/environment
 
 cp /etc/X11/xinit/xserverrc ~/.xserverrc
 
-cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
-google-chrome-stable https://github.com/settings/keys
+

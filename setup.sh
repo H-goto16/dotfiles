@@ -1,3 +1,4 @@
-sh ./scrupt/base.sh
-sh ./scrupt/gnome.sh
-sh ./scrupt/shell.sh
+sh ./script/base.sh
+sh ./script/gnome.sh
+sh ./script/program.sh
+sh ./script/shell.sh
