@@ -28,6 +28,9 @@ touch ~/.ssh/config
 echo "Host *
     IPQoS=0x00" >> ~/.ssh/config
 
+curl -o https://sf16-va.larksuitecdn.com/obj/lark-artifact-storage/033c3a0e/Lark-linux_x64-6.9.20.deb
+sudo dpkg -i --force-all Lark-linux_x64-6.9.20.deb
+
 sudo cp ~/dotfiles/fcitx/environment /etc/environment
 
 cp /etc/X11/xinit/xserverrc ~/.xserverrc
