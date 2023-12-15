@@ -135,7 +135,6 @@ function mkcd() {
   mkdir -p "$1" && cd "$1"
 }
 
-export NPM_GITHUB_TOKEN=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
 export LS_COLORS='di=01;33'
 
 bindkey '^R' history-incremental-pattern-search-backward
