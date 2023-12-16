@@ -1,5 +1,7 @@
 LANG=C xdg-user-dirs-gtk-update
 
+rm -rf ダウンロード テンプレート デスクトップ ドキュメント ビデオ ピクチャ ミュージック 公開
+
 read -p "Enter your git email: " gitEmail
 read -p "Enter your git name: " gitName
 
