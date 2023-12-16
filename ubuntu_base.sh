@@ -33,6 +33,9 @@ rm -f packages.microsoft.gpg
 curl -fSsL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor | sudo tee /usr/share/keyrings/google-chrome.gpg > /dev/null
 echo deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main | sudo tee /etc/apt/sources.list.d/google-chrome.list
 
+# install slack
+echo "deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main" | sudo tee /etc/apt/sources.list.d/slack.list >/dev/null
+
 # install docker
 curl -fsSL get.docker.com -o get-docker.sh
 sh get-docker.sh
@@ -49,6 +52,8 @@ nvm install stable
 npm i -g yarn
 
 # setup zsh
+
+cp .zshrc ~/.zshrc
 
 # auto suggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
