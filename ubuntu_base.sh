@@ -1,3 +1,5 @@
+LANG=C xdg-user-dirs-gtk-update
+
 read -p "Enter your git email: " gitEmail
 read -p "Enter your git name: " gitName
 
