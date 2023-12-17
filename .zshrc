@@ -34,6 +34,9 @@ select-word-style default
 
 autoload -Uz compinit
 compinit
+zstyle ':completion:*:default' menu select=1
+zstyle ':completion:*' format '%B%F{blue}%d%f%b'
+
 
 zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
@@ -45,10 +48,6 @@ zstyle ':completion:*' ignore-parents parent pwd ..
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
                     /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 
-zstyle ':completion:*' menu true
-zstyle ':completion:*:rm:*' menu false
-zstyle ':completion:*:setopt:*' menu true select
-
 zstyle ':completion:*' completer _complete _approximate
 zstyle ':completion:*:approximate' max-errors 4 NUMERIC
 zstyle ':completion:*' completer _complete _correct
@@ -56,9 +55,6 @@ zstyle ':completion:*' completer _complete _approximate _prefix
 
 zstyle ':autocomplete:*' add-space \
     executables aliases functions builtins reserved-words commands
-
-zstyle ':autocomplete:*complete*:*' insert-unambiguous yes
-zstyle ':autocomplete:menu-search:*' insert-unambiguous yes
 
 function rprompt-git-current-branch {
   local branch_name st branch_status
@@ -101,6 +97,7 @@ alias ls='ls --color=auto' \
       gc='git checkout' \
       gd='git diff' \
       gcb='git checkout -b' \
+      gf='git fetch -v' \
       gp='git push' \
       gpo='git push origin' \
       gpos='git push origin stage' \
@@ -145,9 +142,5 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 # git-completion
 # curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -o ~/.zsh/git-completion.zsh
 fpath=(~/.zsh $fpath)
-zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.zsh
-
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-# mkdir -p ~/Repos && cd $_ && git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git
-source ~/Repos/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.zshsz
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
