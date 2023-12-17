@@ -1,34 +1,37 @@
 LANG=C xdg-user-dirs-gtk-update
 
-rm -rf ダウンロード テンプレート デスクトップ ドキュメント ビデオ ピクチャ ミュージック 公開
+rm -rf ~/ダウンロード ~/テンプレート ~/デスクトップ ~/ドキュメント ~/ビデオ ~/ピクチャ ~/ミュージック ~/公開
 
 read -p "Enter your git email: " gitEmail
 read -p "Enter your git name: " gitName
+
 
 if [ -z "$gitEmail" ] || [ -z "$gitName" ]; then
     gitEmail="h.goto.engineer@gmail.com"
     gitName="H-goto16"
 fi
 
-sudo apt update -y && sudo apt upgrade -y
-
-sudo apt install -y flatpak \
-zsh \
-git \
-vim \
-terminator \
-curl \
-software-properties-common \
-apt-transport-https \
-ca-certificates \
-apt-transport-https \
-gnome-software-plugin-flatpak
-
 git config --global user.email "$gitEmail"
 git config --global user.name "$gitName"
 
+sudo apt update -y && sudo apt upgrade -y
+
+sudo apt install -y flatpak \
+                    zsh \
+                    git \
+                    vim \
+                    terminator \
+                    curl \
+                    software-properties-common \
+                    apt-transport-https \
+                    ca-certificates \
+                    apt-transport-https \
+                    gnome-software-plugin-flatpak \
+                    wget \
+                    gpg \
+                    obs-studio \
+
 # install vscode
-sudo apt-get install wget gpg
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
 sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
@@ -42,6 +45,7 @@ echo deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.
 sh get-docker.sh
 sudo gpasswd -a $USER docker
 
+# install apps
 sudo apt update -y
 sudo apt install code google-chrome-stable -y
 snap install slack discord
@@ -56,3 +60,16 @@ npm i -g yarn
 
 # install consolas font
 sh ./install_consolas.sh
+
+# install zsh
+sh ./setup_zsh.sh
+
+# git ssh
+touch ~/.ssh/config
+echo 'Host *
+    IPQoS=0x00' >> ~/.ssh/config
+
+ssh-keygen
+echo "\n\nCopy this key and paste to github.com\n"
+cat ~/.ssh/id_rsa.pub
+echo "\n"
