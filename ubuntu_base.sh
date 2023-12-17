@@ -21,7 +21,8 @@ curl \
 software-properties-common \
 apt-transport-https \
 ca-certificates \
-apt-transport-https
+apt-transport-https \
+gnome-software-plugin-flatpak
 
 git config --global user.email "$gitEmail"
 git config --global user.name "$gitName"
@@ -37,37 +38,21 @@ rm -f packages.microsoft.gpg
 curl -fSsL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor | sudo tee /usr/share/keyrings/google-chrome.gpg > /dev/null
 echo deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main | sudo tee /etc/apt/sources.list.d/google-chrome.list
 
-# install slack
-echo "deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main" | sudo tee /etc/apt/sources.list.d/slack.list >/dev/null
-
 # install docker
-curl -fsSL get.docker.com -o get-docker.sh
 sh get-docker.sh
+sudo gpasswd -a $USER docker
 
 sudo apt update -y
 sudo apt install code google-chrome-stable -y
+snap install slack discord
 
 # install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 nvm install stable
 npm i -g yarn
 
-# setup zsh
-
-cp .zshrc ~/.zshrc
-
-# auto suggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# auto complete
-mkdir ~/Repos
-cd ~/Repos
-git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git
-
-# syntax highlighting
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
-echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
+# install consolas font
+sh ./install_consolas.sh
