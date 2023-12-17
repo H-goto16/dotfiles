@@ -2,7 +2,7 @@
 # zsh-auto-suggestions
 # zsh-syntax-highlighting
 
-PROMPT="%B%F{9}%n %f%b%F{45}%~%f[%F{227}%?%f] $ "
+PROMPT="%B%F{9}%n %f%b%F{45}%~%f[%F{227}%?%f] > "
 
 # History settings
 export HISTSIZE=1000000
@@ -126,7 +126,8 @@ alias ls='ls --color=auto' \
       yl='y lint' \
       yi='y install' \
       yga='y global add' \
-      ya='y add'
+      ya='y add' \
+      n='bash -c "if [[ $(gsettings get org.gnome.settings-daemon.plugins.color night-light-enabled) == "true" ]]; then gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false; else gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true; fi"'
 
 function mkcd() {
   mkdir -p "$1" && cd "$1"
@@ -143,4 +144,6 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 # curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -o ~/.zsh/git-completion.zsh
 fpath=(~/.zsh $fpath)
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.zshsz
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
