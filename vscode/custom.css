@@ -1,7 +1,3 @@
-/* .composite title has-composite-bar { */
-
-/* } */
-
-.composite .title .has-composite-bar {
+.has-composite-bar {
   display: none;
 }
