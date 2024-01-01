@@ -109,7 +109,8 @@ alias ls='ls --color=auto' \
       sd="sudo" \
       sdpc="sudo pacman" \
       d='docker' \
-      dc='docker-compose' \
+      dc='docker compose' \
+      co="code ." \
       s='startx' \
       c='cd' \
       d='cd' \
@@ -140,10 +141,12 @@ bindkey '^R' history-incremental-pattern-search-backward
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
+export NPM_GITHUB_TOKEN=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
+
 # git-completion
 # curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -o ~/.zsh/git-completion.zsh
 fpath=(~/.zsh $fpath)
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.zshsz
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
