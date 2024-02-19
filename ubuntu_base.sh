@@ -16,8 +16,7 @@ git config --global user.name "$gitName"
 
 sudo apt update -y && sudo apt upgrade -y
 
-sudo apt install -y flatpak \
-                    zsh \
+sudo apt install -y zsh \
                     git \
                     vim \
                     terminator \
