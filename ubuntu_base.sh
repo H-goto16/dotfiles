@@ -47,7 +47,6 @@ sudo gpasswd -a $USER docker
 # install apps
 sudo apt update -y
 sudo apt install code google-chrome-stable -y
-snap install slack discord
 
 # install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
