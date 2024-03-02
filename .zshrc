@@ -106,6 +106,7 @@ alias ls='ls --color=auto' \
       gplo='git pull origin' \
       gplos='git pull origin stage' \
       gploH='git pull origin HEAD' \
+      gl="git log" \
       sd="sudo" \
       sdpc="sudo pacman" \
       d='docker' \
@@ -130,6 +131,7 @@ alias ls='ls --color=auto' \
       ya='y add' \
       n='bash -c "if [[ $(gsettings get org.gnome.settings-daemon.plugins.color night-light-enabled) == "true" ]]; then gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false; else gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true; fi"'
 
+
 function mkcd() {
   mkdir -p "$1" && cd "$1"
 }
@@ -141,7 +143,7 @@ bindkey '^R' history-incremental-pattern-search-backward
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-export NPM_GITHUB_TOKEN=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
+export NPM_GITHUB_TOKEN=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
 
 # git-completion
 # curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -o ~/.zsh/git-completion.zsh
@@ -150,3 +152,5 @@ zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.zshsz
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+echo Node.js Version is $(nvm current)
