@@ -7,10 +7,8 @@ PROMPT="%B%F{9}%n %f%b%F{45}%~%f[%F{227}%?%f] > "
 # History settings
 export HISTSIZE=1000000
 export SAVEHIST=1000000
-export HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
+export HISTFILE=${HOME}/.zsh_history
 setopt share_history
-
-# export LANG=ja_JP.UTF-8
 
 setopt print_eight_bit
 setopt no_beep
@@ -129,7 +127,8 @@ alias ls='ls --color=auto' \
       yi='y install' \
       yga='y global add' \
       ya='y add' \
-      n='bash -c "if [[ $(gsettings get org.gnome.settings-daemon.plugins.color night-light-enabled) == "true" ]]; then gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false; else gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true; fi"'
+      n='bash -c "if [[ $(gsettings get org.gnome.settings-daemon.plugins.color night-light-enabled) == "true" ]]; then gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false; else gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true; fi"' \
+      uu="sudo apt update -y && sudo apt upgrade -y"
 
 
 function mkcd() {
@@ -144,6 +143,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 export NPM_GITHUB_TOKEN=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
+export LANG=en_US
 
 # git-completion
 # curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -o ~/.zsh/git-completion.zsh
