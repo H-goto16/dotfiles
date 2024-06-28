@@ -26,9 +26,14 @@ sudo apt install -y zsh \
                     ca-certificates \
                     apt-transport-https \
                     gnome-software-plugin-flatpak \
+                    gnome-shell-extension-manager \
+                    libgtop2-dev \
                     wget \
                     gpg \
+                    htop \
                     obs-studio \
+
+cd ./script
 
 # install vscode
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
@@ -41,7 +46,7 @@ curl -fSsL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor | s
 echo deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main | sudo tee /etc/apt/sources.list.d/google-chrome.list
 
 # install docker
-sh get-docker.sh
+sh ./get-docker.sh
 sudo gpasswd -a $USER docker
 
 # install apps
@@ -52,9 +57,6 @@ sudo apt install code google-chrome-stable -y
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-nvm install stable
-npm i -g yarn
 
 # install consolas font
 sh ./install_consolas.sh
@@ -68,6 +70,8 @@ echo 'Host *
     IPQoS=0x00' >> ~/.ssh/config
 
 ssh-keygen
-echo "\n\nCopy this key and paste to github.com\n"
-cat ~/.ssh/id_rsa.pub
-echo "\n"
+
+echo "Access to https://slack.com/intl/ja-jp/downloads/linux"
+
+cd -
+
