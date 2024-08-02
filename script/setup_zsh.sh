@@ -1,4 +1,6 @@
-touch ~/.zshrc
+cp ../.zshrc ~/.zshrc
+cd ~
+touch ~/.zsh_history
 
 # autosuggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions

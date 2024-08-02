@@ -1,29 +1,9 @@
-#!/bin/bash
+nvm install 20.14
+npm install -g pnpm@9.1.3
 
-# Node.js
+curl -L https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip -o aws-sam-cli-linux-x86_64.zip
+unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
+sudo ./sam-installation/install
+where sam
+sam --version
 
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
-
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-nvm install stable
-npm i -g yarn
-# Docker
-sudo pacman -Sy docker docker-compose --noconfirm
-sudo usermod -aG docker $USER
-sudo systemctl enable docker
-
-# flutter
-yay -S flutter android-studio --noconfirm
-sudo pacman -Sy dart android-tools --noconfirm
-
-sudo chown -R $USER /opt/flutter
-export PATH="$PATH:/opt/flutter/bin"
-export CHROME_EXECUTABLE=/usr/bin/google-chrome-stable
-
-# Python
-sudo pacman -Sy python python-pip --noconfirm
-
-# sam
-yay -S aws-sam-cli --noconfirm

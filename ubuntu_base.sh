@@ -13,13 +13,13 @@ fi
 
 git config --global user.email "$gitEmail"
 git config --global user.name "$gitName"
+git config --global core.editor vim
 
 sudo apt update -y && sudo apt upgrade -y
 
 sudo apt install -y zsh \
                     git \
                     vim \
-                    terminator \
                     curl \
                     software-properties-common \
                     apt-transport-https \
@@ -31,7 +31,7 @@ sudo apt install -y zsh \
                     wget \
                     gpg \
                     htop \
-                    obs-studio \
+                    mpv 
 
 cd ./script
 
@@ -45,13 +45,25 @@ rm -f packages.microsoft.gpg
 curl -fSsL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor | sudo tee /usr/share/keyrings/google-chrome.gpg > /dev/null
 echo deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main | sudo tee /etc/apt/sources.list.d/google-chrome.list
 
+# install warp terminal
+sudo apt-get install wget gpg
+wget -qO- https://releases.warp.dev/linux/keys/warp.asc | gpg --dearmor > warpdotdev.gpg
+sudo install -D -o root -g root -m 644 warpdotdev.gpg /etc/apt/keyrings/warpdotdev.gpg
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/warpdotdev.gpg] https://releases.warp.dev/linux/deb stable main" > /etc/apt/sources.list.d/warpdotdev.list'
+rm warpdotdev.gpg
+sudo apt update && sudo apt install
+
+# install brave
+sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+
 # install docker
 sh ./get-docker.sh
 sudo gpasswd -a $USER docker
 
 # install apps
 sudo apt update -y
-sudo apt install code google-chrome-stable -y
+sudo apt install code google-chrome-stable warp-terminal brave -y
 
 # install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
@@ -71,7 +83,7 @@ echo 'Host *
 
 ssh-keygen
 
-echo "Access to https://slack.com/intl/ja-jp/downloads/linux"
+snap install slack
 
 cd -
 
