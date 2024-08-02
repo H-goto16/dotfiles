@@ -31,7 +31,7 @@ sudo apt install -y zsh \
                     wget \
                     gpg \
                     htop \
-                    mpv 
+                    mpv
 
 cd ./script
 
@@ -57,13 +57,17 @@ sudo apt update && sudo apt install
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 
+# install spotify
+curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+
 # install docker
 sh ./get-docker.sh
 sudo gpasswd -a $USER docker
 
 # install apps
 sudo apt update -y
-sudo apt install code google-chrome-stable warp-terminal brave -y
+sudo apt install code google-chrome-stable warp-terminal brave spotify-client -y
 
 # install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
