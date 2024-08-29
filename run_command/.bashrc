@@ -5,18 +5,10 @@ esac
 
 # HISTORY
 
-HISTCONTROL=ignoreboth
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTCONTROL=ignoredups:erasedups
+HISTSIZE=100000
+HISTFILESIZE=200000
 HISTFILE=~/.bash_history
-
-shopt -u histappend
-share_history(){
-  history -a
-  history -c
-  history -r
-}
-PROMPT_COMMAND='share_history'
 
 # SHOPT
 
@@ -36,26 +28,12 @@ shopt -s progcomp
 shopt -s hostcomplete
 shopt -s cmdhist
 shopt -s histreedit
+shopt -u histappend
 
 # COMPILATION
 bind 'set completion-ignore-case on'
 bind 'TAB:menu-complete'
 bind 'set show-all-if-ambiguous on'
-
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
 
 # PS1
 # get current branch in git repo
