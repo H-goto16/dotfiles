@@ -5,6 +5,8 @@ vim.call('plug#begin')
 -- coc --
 Plug ('neoclide/coc.nvim', {['branch'] = 'release'})
 -- color scheme --
+-- --Plug ('tomasiser/vim-code-dark')
+-- Plug ('Mofiqul/vscode.nvim')
 Plug ("LunarVim/darkplus.nvim")
 -- material icon theme --
 Plug ('Allianaab2m/nvim-material-icon-v3')
