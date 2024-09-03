@@ -5,9 +5,19 @@ vim.call('plug#begin')
 -- coc --
 Plug ('neoclide/coc.nvim', {['branch'] = 'release'})
 -- color scheme --
--- --Plug ('tomasiser/vim-code-dark')
--- Plug ('Mofiqul/vscode.nvim')
+Plug ('tomasiser/vim-code-dark')
+Plug ('Mofiqul/vscode.nvim')
 Plug ("LunarVim/darkplus.nvim")
+-- JSX Plugin --
+Plug ('leafgarland/typescript-vim')
+Plug ('peitalin/vim-jsx-typescript')
+Plug ('pangloss/vim-javascript')
+Plug ('leafgarland/typescript-vim')
+Plug ('maxmellon/vim-jsx-pretty')
+Plug ('jparise/vim-graphql')
+Plug ('leafgarland/typescript-vim')
+-- treesitter --
+Plug ('nvim-treesitter/nvim-treesitter')
 -- material icon theme --
 Plug ('Allianaab2m/nvim-material-icon-v3')
 -- status bar --
@@ -36,9 +46,11 @@ Plug ('TheGLander/indent-rainbowline.nvim')
 Plug ('numToStr/Comment.nvim')
 --lexima auto bracket--
 Plug ('cohama/lexima.vim')
+-- github copilot --
+Plug ('github/copilot.vim')
 vim.call('plug#end')
 
-vim.cmd("colorscheme darkplus")
+vim.cmd("colorscheme codedark")
 -- vim settings --
 
 vim.cmd('set number')
@@ -75,4 +87,10 @@ vim.g.coc_user_config = {
   ["coc.preferences.jumpCommand"] = "edit",
   ["coc.preferences.jumpKey"] = "<C-LeftMouse>"
 }
-
+-- vim.cmd("autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact")
+-- vim.cmd("hi tsxTagName guifg=#E06C75")
+-- vim.cmd("hi tsxComponentName guifg=#E06C75")
+-- vim.cmd("hi tsxCloseComponentName guifg=#E06C75")
+-- vim.cmd("hi tsxTagName guifg=#E06C75")
+-- vim.cmd("hi tsxComponentName guifg=#E06C75")
+--vim.cmd("hi tsxCloseComponentName guifg=#E06C75")
