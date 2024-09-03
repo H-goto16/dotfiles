@@ -1,0 +1,5 @@
+{
+  "coc.preferences.formatOnSave": true,
+  "eslint.alwaysShowStatus": true,
+  "typescript.preferGoToSourceDefinition": true
+}
