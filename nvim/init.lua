@@ -48,6 +48,8 @@ Plug ('cohama/lexima.vim')
 Plug ('github/copilot.vim')
 -- smooth scroll --
 Plug ('karb94/neoscroll.nvim')
+-- bracket pair colorizer --
+Plug ('HiPhish/nvim-ts-rainbow2')
 vim.call('plug#end')
 
 vim.cmd("colorscheme vscode")
@@ -118,5 +120,13 @@ require('nvim-treesitter.configs').setup {
   auto_install = true,
   highlight = {
     enable = true
+  }
+}
+
+require('nvim-treesitter.configs').setup {
+  rainbow = {
+    enable = true,
+    query = 'rainbow-parens',
+    strategy = require('ts-rainbow').strategy.global,
   }
 }
