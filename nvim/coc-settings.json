@@ -1,5 +1,24 @@
 {
   "coc.preferences.formatOnSave": true,
   "eslint.alwaysShowStatus": true,
-  "typescript.preferGoToSourceDefinition": true
+  "typescript.preferGoToSourceDefinition": true,
+  "eslint.enable": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue"
+  ],
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue"
+  ],
+  "eslint.options": {
+    "fix": true
+  }
 }
