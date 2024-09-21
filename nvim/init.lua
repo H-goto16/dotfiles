@@ -26,7 +26,6 @@ Plug ('lewis6991/gitsigns.nvim')
 Plug ('romgrk/barbar.nvim')
 -- sidebar --
 Plug ('nvim-tree/nvim-tree.lua')
-Plug ('nvim-tree/nvim-web-devicons')
 Plug ('kdheepak/lazygit.nvim')
 -- eslint --
 Plug ('neovim/nvim-lspconfig')
@@ -49,7 +48,8 @@ Plug ('github/copilot.vim')
 -- smooth scroll --
 Plug ('karb94/neoscroll.nvim')
 -- bracket pair colorizer --
-Plug ('HiPhish/nvim-ts-rainbow2')
+-- Plug ("HiPhish/rainbow-delimiters.nvim")
+Plug ("HiPhish/nvim-ts-rainbow2")
 vim.call('plug#end')
 
 vim.cmd("colorscheme vscode")
@@ -67,6 +67,7 @@ vim.cmd('set title')
 vim.cmd('set showmatch')
 vim.cmd('set clipboard+=unnamed')
 vim.cmd('set tags=tags;/')
+vim.cmd('set cmdheight=0')
 vim.cmd(":command Sd CocCommand tsserver.goToSourceDefinition")
 vim.cmd('nnoremap <C-LeftMouse> :Sd<CR> ')
 -- nvim tree
@@ -77,11 +78,21 @@ require'nvim-tree'.setup {
 }
 -- enable plugins
 require('error-lens').setup{}
-require('ibl').setup{}
+local highlight = {
+    "RainbowRed",
+    "RainbowYellow",
+    "RainbowBlue",
+    "RainbowOrange",
+    "RainbowGreen",
+    "RainbowViolet",
+    "RainbowCyan",
+}
 require('lualine').setup{}
 require("scrollbar").setup{}
 require('gitsigns').setup()
 require("scrollbar.handlers.gitsigns").setup()
+require'nvim-web-devicons'.get_icons()
+require("ibl").setup(require("indent-rainbowline").make_opts({}))
 require('Comment').setup()
 require('neoscroll').setup({
   mappings = {                 -- Keys to be mapped to their corresponding default scrolling animation
@@ -90,7 +101,7 @@ require('neoscroll').setup({
     '<C-y>', '<C-e>',
     'zt', 'zz', 'zb',
   },
-  hide_cursor = true,          -- Hide cursor while scrolling
+  hide_cursor = false,          -- Hide cursor while scrolling
   stop_eof = true,             -- Stop at <EOF> when scrolling downwards
   respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
   cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
@@ -102,31 +113,32 @@ require('neoscroll').setup({
       'WinScrolled', 'CursorMoved'
   },
 })
-neoscroll = require('neoscroll')
 vim.g.coc_user_config = {
   ["coc.preferences.enableFloatHighlight"] = true,
   ["coc.preferences.jumpCommand"] = "edit",
   ["coc.preferences.jumpKey"] = "<C-LeftMouse>"
 }
-
+-- ctrl + s save --
 vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>a', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
-
+-- alt move line --
+vim.api.nvim_set_keymap('n', '<A-Up>', ':m .-2<CR>==', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-Down>', ':m .+1<CR>==', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<A-Up>', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<A-Down>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = {"typescript", "javascript", "tsx", "json", "markdown"},
+  ensure_installed = {"typescript", "javascript", "json", "markdown"},
   sync_install = false,
   auto_install = true,
   highlight = {
     enable = true
-  }
-}
-
-require('nvim-treesitter.configs').setup {
+  },
   rainbow = {
     enable = true,
-    query = 'rainbow-parens',
+    query = 'rainbow-parens-react',
+    disable = {'jsx', 'cpp'},
     strategy = require('ts-rainbow').strategy.global,
   }
 }
