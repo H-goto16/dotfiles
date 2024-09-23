@@ -4,20 +4,8 @@
   "typescript.preferGoToSourceDefinition": true,
   "eslint.enable": true,
   "eslint.autoFixOnSave": true,
-  "eslint.filetypes": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "vue"
-  ],
-  "coc.preferences.formatOnSaveFiletypes": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "vue"
-  ],
+  "eslint.codeActionsOnSave.mode": "all",
+  "coc.preferences.formatOnType": true,
   "eslint.options": {
     "fix": true
   }
