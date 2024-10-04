@@ -26,7 +26,7 @@ local plugins = {
   'nvim-lualine/lualine.nvim',
   'nvim-tree/nvim-web-devicons',
   'lewis6991/gitsigns.nvim',
-  'romgrk/barbar.nvim',
+  'akinsho/bufferline.nvim',
   -- Sidebar plugins
   'nvim-tree/nvim-tree.lua',
   'kdheepak/lazygit.nvim',
@@ -54,6 +54,9 @@ local plugins = {
   'HiPhish/nvim-ts-rainbow2',
   -- Notifications
   'rcarriga/nvim-notify',
+  -- search and replace
+  'nvim-lua/plenary.nvim',
+  'nvim-pack/nvim-spectre'
 }
 
 -- Register plugins
@@ -98,12 +101,13 @@ local keymaps = {
   { mode = 'n', key = '<C-s>', action = ':w<CR>', opts = { noremap = true, silent = true } },
   { mode = 'i', key = '<C-s>', action = '<Esc>:w<CR>a', opts = { noremap = true, silent = true } },
   { mode = 'v', key = '<C-s>', action = '<Esc>:w<CR>', opts = { noremap = true, silent = true } },
-  -- Move lines with Alt+Up/Down
-  { mode = 'n', key = '<A-Up>', action = ':m .-2<CR>==', opts = { noremap = true, silent = true } },
-  { mode = 'n', key = '<A-Down>', action = ':m .+1<CR>==', opts = { noremap = true, silent = true } },
-  { mode = 'v', key = '<A-Up>', action = ":m '<-2<CR>gv=gv", opts = { noremap = true, silent = true } },
-  { mode = 'v', key = '<A-Down>', action = ":m '>+1<CR>gv=gv", opts = { noremap = true, silent = true } },
 }
+
+vim.api.nvim_set_keymap('n', '<A-Up>', ':m .-2<CR>==', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-Down>', ':m .+1<CR>==', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<A-Up>', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<A-Down>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+
 
 for _, map in ipairs(keymaps) do
   vim.api.nvim_set_keymap(map.mode, map.key, map.action, map.opts)
@@ -129,7 +133,7 @@ require('neoscroll').setup {
   performance_mode = false,
   ignored_events = { 'WinScrolled', 'CursorMoved' }
 }
-
+require('bufferline').setup{}
 require('nvim-treesitter.configs').setup {
   ensure_installed = { "typescript", "javascript", "json", "markdown" },
   sync_install = false,
@@ -141,6 +145,7 @@ require('nvim-treesitter.configs').setup {
         max_file_lines = nil, -- Do not enable for files with more than n lines, int
   },
 }
+require('spectre').setup()
 
 vim.g.coc_user_config = {
   ["coc.preferences.enableFloatHighlight"] = true,
