@@ -1,12 +1,48 @@
 {
+  "coc.preferences.enableLinkedEditing": true,
+  "coc.preferences.enableMessageDialog": true,
+  "coc.preferences.extensionUpdateCheck": "daily",
   "coc.preferences.formatOnSave": true,
-  "eslint.alwaysShowStatus": true,
-  "typescript.preferGoToSourceDefinition": true,
-  "eslint.enable": true,
-  "eslint.autoFixOnSave": true,
-  "eslint.codeActionsOnSave.mode": "all",
   "coc.preferences.formatOnType": true,
-  "eslint.options": {
-    "fix": true
-  }
+  "coc.preferences.useQuickfixForLocations": true,
+  "coc.preferences.willSaveHandlerTimeout": 1000,
+  "coc.source.file.ignoreHidden": false,
+  "codeLens.enable": true,
+  "codeLens.position": "eol",
+  "colors.enable": true,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.floatConfig": {
+    "border": true,
+    "rounded": true
+  },
+  "diagnostic.format": "%message [%source]",
+  "diagnostic.virtualText": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.format.enable": true,
+  "snippets.extends": {
+    "javascriptreact": ["javascript"],
+    "typescript": ["javascript"]
+  },
+  "snippets.ultisnips.enable": false,
+  "suggest.acceptSuggestionOnCommitCharacter": true,
+  "suggest.defaultSortMethod": "none",
+  "suggest.detailField": "abbr",
+  "suggest.floatConfig": {
+    "border": true,
+    "rounded": true
+  },
+  "suggest.selection": "recentlyUsedByPrefix",
+  "tsserver.experimental.enableProjectDiagnostics": true,
+  "tsserver.implicitProjectConfig.checkJs": true,
+  "tsserver.useLocalTsdk": true,
+  "typescript.autoClosingTags": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+  "typescript.format.semicolons": "ignore",
+  "typescript.inlayHints.enumMemberValues.enabled": true,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "typescript.inlayHints.parameterTypes.enabled": true,
+  "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "typescript.inlayHints.variableTypes.enabled": true,
+  "typescript.preferences.useAliasesForRenames": false,
+  "typescript.referencesCodeLens.showOnAllFunctions": true
 }
