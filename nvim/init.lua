@@ -143,9 +143,10 @@ local plugin_setup = {
                 }
         end,
         ['spectre'] = function() require('spectre').setup() end,
-        ['ibl'] = function()
-                require("ibl").setup(require("indent-rainbowline").make_opts({}))
-        end
+        --         ['ibl'] = function()
+        --                 opts = {}
+        --                 require("ibl").setup(require("indent-rainbowline").make_opts(opts))
+        --         end
 }
 for _, setup in pairs(plugin_setup) do
         setup()
