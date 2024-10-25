@@ -55,7 +55,9 @@ local plugins = {
         'rcarriga/nvim-notify',
         -- Search and replace
         'nvim-lua/plenary.nvim',
-        'nvim-pack/nvim-spectre'
+        'nvim-pack/nvim-spectre',
+        -- Multiple cursors
+        'terryma/vim-multiple-cursors'
 }
 
 -- Register plugins
