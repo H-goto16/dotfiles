@@ -127,9 +127,21 @@ local plugin_setup = {
                 require('bufferline').setup {
                         options = {
                                 numbers = 'ordinal',
+                                tab_size = 10,
+                                indicator = {
+                                        icon = '▎',
+                                        style = 'underline',
+                                },
+                                separator_style = 'slope',
+                                color_icons = true,
+                                show_buffer_icons = true,
+                                show_close_icon = false,
+                                show_tab_indicators = true,
+
                                 diagnostics = 'coc',
-                                diagonostic_indicator = function(count)
-                                        return '(' .. count .. ')'
+                                diagonostic_indicator = function(count, level)
+                                        local icon = level:match("error") and " " or " "
+                                        return " " .. icon .. count
                                 end
                         }
                 }

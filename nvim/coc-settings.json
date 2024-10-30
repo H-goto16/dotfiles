@@ -17,7 +17,7 @@
   },
   "diagnostic.format": "%message [%source]",
   "diagnostic.virtualText": true,
-  "eslint.autoFixOnSave": false,
+  "eslint.autoFixOnSave": true,
   "eslint.format.enable": true,
 
   "snippets.extends": {
