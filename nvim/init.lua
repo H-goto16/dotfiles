@@ -57,7 +57,10 @@ local plugins = {
         'nvim-lua/plenary.nvim',
         'nvim-pack/nvim-spectre',
         -- Multiple cursors
-        'terryma/vim-multiple-cursors'
+        'terryma/vim-multiple-cursors',
+        -- Rename variable
+        'nvim-lua/plenary.nvim',
+        { 'filipdutescu/renamer.nvim', { branch = 'master' } },
 }
 
 -- Register plugins
@@ -101,13 +104,16 @@ vim.opt.termguicolors = true
 
 -- Key Mappings
 local keymaps = {
-        { mode = 'n', key = '<C-s>',    action = ':w<CR>',           opts = { noremap = true, silent = true } },
-        { mode = 'i', key = '<C-s>',    action = '<Esc>:w<CR>a',     opts = { noremap = true, silent = true } },
-        { mode = 'v', key = '<C-s>',    action = '<Esc>:w<CR>',      opts = { noremap = true, silent = true } },
-        { mode = 'n', key = '<A-Up>',   action = ':m .-2<CR>==',     opts = { noremap = true, silent = true } },
-        { mode = 'n', key = '<A-Down>', action = ':m .+1<CR>==',     opts = { noremap = true, silent = true } },
-        { mode = 'v', key = '<A-Up>',   action = ":m '<-2<CR>gv=gv", opts = { noremap = true, silent = true } },
-        { mode = 'v', key = '<A-Down>', action = ":m '>+1<CR>gv=gv", opts = { noremap = true, silent = true } },
+        { mode = 'n', key = '<C-s>',      action = ':w<CR>',                                   opts = { noremap = true, silent = true } },
+        { mode = 'i', key = '<C-s>',      action = '<Esc>:w<CR>a',                             opts = { noremap = true, silent = true } },
+        { mode = 'v', key = '<C-s>',      action = '<Esc>:w<CR>',                              opts = { noremap = true, silent = true } },
+        { mode = 'n', key = '<A-Up>',     action = ':m .-2<CR>==',                             opts = { noremap = true, silent = true } },
+        { mode = 'n', key = '<A-Down>',   action = ':m .+1<CR>==',                             opts = { noremap = true, silent = true } },
+        { mode = 'v', key = '<A-Up>',     action = ":m '<-2<CR>gv=gv",                         opts = { noremap = true, silent = true } },
+        { mode = 'v', key = '<A-Down>',   action = ":m '>+1<CR>gv=gv",                         opts = { noremap = true, silent = true } },
+        { mode = 'i', key = '<F2>',       action = '<cmd>lua require("renamer").rename()<cr>', opts = { noremap = true, silent = true } },
+        { mode = 'n', key = '<leader>rn', action = '<cmd>lua require("renamer").rename()<cr>', opts = { noremap = true, silent = true } },
+        { mode = 'v', key = '<leader>rn', action = '<cmd>lua require("renamer").rename()<cr>', opts = { noremap = true, silent = true } }
 }
 set_keymaps(keymaps)
 
