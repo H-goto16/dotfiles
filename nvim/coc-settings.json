@@ -3,7 +3,6 @@
   "coc.preferences.enableMessageDialog": true,
   "coc.preferences.extensionUpdateCheck": "daily",
   "coc.preferences.formatOnSave": true,
-  "coc.preferences.formatOnType": true,
   "coc.preferences.useQuickfixForLocations": true,
   "coc.preferences.willSaveHandlerTimeout": 1000,
   "coc.source.file.ignoreHidden": false,
@@ -19,7 +18,7 @@
   "diagnostic.virtualText": true,
   "eslint.autoFixOnSave": true,
   "eslint.format.enable": true,
-
+  "eslint.enable": false,
   "snippets.extends": {
     "javascriptreact": ["javascript"],
     "typescript": ["javascript"]
@@ -32,6 +31,8 @@
     "border": true,
     "rounded": true
   },
+  "biome.enable": true,
+  "biome.requireConfiguration": true,
   "suggest.selection": "recentlyUsedByPrefix",
   "tsserver.experimental.enableProjectDiagnostics": true,
   "tsserver.implicitProjectConfig.checkJs": true,
