@@ -178,10 +178,8 @@ vim.api.nvim_create_autocmd("BufWritePost", {
         pattern = { "*.tsx", "*.ts", "*.js", "*.jsx" },
         command = "CocCommand tsserver.executeAutofix"
 })
-require("vscode").setup({
-        transparent = true,
-})
-vim.cmd.colorscheme "vscode"
+
+vim.cmd('colorscheme vscode')
 
 vim.opt.backup = false
 vim.opt.writebackup = false

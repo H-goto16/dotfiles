@@ -1,4 +1,4 @@
-cp ../.zshrc ~/.zshrc
+# cp ../.zshrc ~/.zshrc
 cd ~
 touch ~/.zsh_history
 
@@ -10,6 +10,6 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-echo "source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
+# echo "source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
 
 # chsh -s $(which zsh)

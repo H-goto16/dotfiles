@@ -8,8 +8,9 @@ PROMPT="%f%b%F{45}%~%f[%F{227}%?%f] > "
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 export HISTFILE=${HOME}/.zsh_history
-
 setopt share_history
+
+export LANG=en_US.UTF-8
 
 setopt print_eight_bit
 setopt no_beep
@@ -24,11 +25,6 @@ setopt hist_ignore_all_dups
 setopt hist_ignore_space
 setopt hist_reduce_blanks
 setopt extended_glob
-setopt correct
-setopt complete_in_word
-setopt always_to_end
-setopt auto_menu
-
 
 autoload -Uz colors
 colors
@@ -56,7 +52,6 @@ zstyle ':completion:*' completer _complete _approximate
 zstyle ':completion:*:approximate' max-errors 4 NUMERIC
 zstyle ':completion:*' completer _complete _correct
 zstyle ':completion:*' completer _complete _approximate _prefix
-zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.zsh
 
 zstyle ':autocomplete:*' add-space \
     executables aliases functions builtins reserved-words commands
@@ -117,7 +112,6 @@ alias ls='ls --color=auto' \
       d='docker' \
       dc='docker compose' \
       co="code ." \
-      cod="code ." \
       s='startx' \
       c='cd' \
       d='cd' \
@@ -126,19 +120,6 @@ alias ls='ls --color=auto' \
       lsl='ls' \
       sl='ls' \
       sls='ls' \
-      lscd='ls' \
-      lsc='ls' \
-      lsd='ls' \
-      ldcs='ls' \
-      t='tmux' \
-      nv='nvim' \
-      nvd='nvim .' \
-      nv.='nvim .' \
-      nd='nvim .' \
-      v='nvim' \
-      vd='nvim .' \
-      v.='nvim .' \
-      vz='nvim ~/.zshrc' \
       cz='code ~/.zshrc' \
       sz='source ~/.zshrc' \
       y='yarn' \
@@ -148,48 +129,32 @@ alias ls='ls --color=auto' \
       yi='y install' \
       yga='y global add' \
       ya='y add' \
-      p="pnpm" \
-      pi="pnpm i" \
-      pa="pnpm add" \
-      pd="pnpm dev" \
-      pb="pnpm build" \
-      ps="pnpm start" \
       n='bash -c "if [[ $(gsettings get org.gnome.settings-daemon.plugins.color night-light-enabled) == "true" ]]; then gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false; else gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true; fi"' \
-      uu="sudo apt update -y && sudo apt upgrade -y" \
-      code="flatpak run com.visualstudio.code"
+      cursor="~/Application/Cursor.AppImage --no-sandbox "
+
 
 function mkcd() {
   mkdir -p "$1" && cd "$1"
 }
 
-bindkey '^R' history-incremental-pattern-search-backward
-
 export LS_COLORS='di=01;33'
-export VOLTA_FEATURE_PNPM=1
-export NPM_GITHUB_TOKEN=****
-export LANG=ja_JP
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
+
+bindkey '^R' history-incremental-pattern-search-backward
+bindkey ";5C" forward-word
+bindkey ";5D" backward-word
+export NPM_GITHUB_TOKEN=******
+
 # git-completion
 # curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -o ~/.zsh/git-completion.zsh
 fpath=(~/.zsh $fpath)
+zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.zshsz
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-###-begin-pnpm-completion-###
-if type compdef &>/dev/null; then
-  _pnpm_completion () {
-    local reply
-    local si=$IFS
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+export ANDROID_HOME=$HOME/Android/Sdk
 
-    IFS=$'\n' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" SHELL=zsh pnpm completion-server -- "${words[@]}"))
-    IFS=$si
-
-    if [ "$reply" = "__tabtab_complete_files__" ]; then
-      _files
-    else
-      _describe 'values' reply
-    fi
-  }
-  compdef _pnpm_completion pnpm
-fi
+export ANDROID_SDK_ROOT=$ANDROID_HOME
+export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH
