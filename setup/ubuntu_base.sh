@@ -45,9 +45,9 @@ flatpak install flathub com.visualstudio.code
 # install google-chrome
 flatpak install flathub com.google.Chrome
 # install wezterm
-flatpak install flathub org.wezfurlong.wezterm
+# flatpak install flathub org.wezfurlong.wezterm
 # install spotify
-flatpak install flathub com.spotify.Client
+# flatpak install flathub com.spotify.Client
 # install slack
 flatpak install flathub com.slack.Slack
 
