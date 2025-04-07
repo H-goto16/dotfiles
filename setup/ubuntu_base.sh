@@ -12,7 +12,6 @@ fi
 
 git config --global user.email "$gitEmail"
 git config --global user.name "$gitName"
-git config --global core.editor vim
 
 sudo apt update -y && sudo apt upgrade -y
 
@@ -35,7 +34,7 @@ sudo apt install -y zsh \
                     flatpak \
                     gnome-software-plugin-flatpak
 
-sudo ntpdate pool.ntp.org
+git config --global core.editor vim
 
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
