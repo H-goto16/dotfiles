@@ -1,4 +1,3 @@
-# cp ../.zshrc ~/.zshrc
 cd ~
 touch ~/.zsh_history
 
