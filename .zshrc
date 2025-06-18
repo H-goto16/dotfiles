@@ -42,7 +42,6 @@ zplug "ajeetdsouza/zoxide", use:"zoxide.zsh"
 zplug "junegunn/fzf", hook-build:"./install --bin"
 zplug "Aloxaf/fzf-tab"
 zplug "zsh-users/zsh-history-substring-search"
-zplug "MichaelAquilina/zsh-you-should-use"
 zplug "changyuheng/zsh-interactive-cd"
 
 if ! zplug check --verbose; then
@@ -115,8 +114,8 @@ PROMPT="%f%b%F{45}%~%f[%F{227}%?%f] > "
 function rprompt-git-current-branch {
   local branch_name st branch_status
   if [ ! -e  ".git" ]; then return; fi
-  branch_name=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
-  st=`git status 2> /dev/null`
+  branch_name=`git rev-parse --abbrev-ref HEAD 2`
+  st=`git status 2`
   if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
     branch_status="%F{green}"
   elif [[ -n `echo "$st" | grep "^Untracked files"` ]]; then
