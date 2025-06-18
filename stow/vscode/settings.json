@@ -41,7 +41,7 @@
     "editor.suggest.preview": true,
     "editor.suggest.localityBonus": true,
     "editor.mouseWheelZoom": true,
-    "editor.fontFamily": "YaHei Consolas Hybrid, Consolas",
+    "editor.fontFamily": "Hack Nerd Fonts",
     "editor.glyphMargin": false,
     "editor.tabSize": 2,
     "editor.renderWhitespace": "all",
@@ -52,14 +52,14 @@
     "workbench.iconTheme": "material-icon-theme",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.colorTheme": "Default Dark+",
-    "workbench.tree.indent": 18,
+    "workbench.tree.indent": 4,
     // WINDOW SETTINGS
     "window.menuBarVisibility": "compact",
     "window.titleBarStyle": "native",
     "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}",
     "window.density.editorTabHeight": "compact",
     // TERMINAL SETTINGS
-    "terminal.integrated.fontFamily": "Yahei Consolas Hybrid, Consolas",
+    "terminal.integrated.fontFamily": "Hack Nerd Fonts",
     "terminal.integrated.profiles.linux": {
         "zsh": {
             "path": "/usr/bin/zsh"
@@ -193,12 +193,6 @@
         "editorIndentGuide.activeBackground": "#FFFFFF45",
         "editorRuler.foreground": "#FFFFFF1A",
         "editorCodeLens.foreground": "#6272A4",
-        // "editorBracketHighlight.foreground1": "#F8F8F2",
-        // "editorBracketHighlight.foreground2": "#FF79C6",
-        // "editorBracketHighlight.foreground3": "#8BE9FD",
-        // "editorBracketHighlight.foreground4": "#50FA7B",
-        // "editorBracketHighlight.foreground5": "#BD93F9",
-        // "editorBracketHighlight.foreground6": "#FFB86C",
         "editorBracketHighlight.unexpectedBracket.foreground": "#FF5555",
         "editorOverviewRuler.border": "#191A21",
         "editorOverviewRuler.selectionHighlightForeground": "#FFB86C",
@@ -251,11 +245,11 @@
         "panelTitle.activeBorder": "#FF79C6",
         "panelTitle.activeForeground": "#F8F8F2",
         "panelTitle.inactiveForeground": "#6272A4",
-        "statusBar.background": "#191A21",
-        "statusBar.foreground": "#F8F8F2",
-        "statusBar.debuggingBackground": "#FF5555",
-        "statusBar.debuggingForeground": "#191A21",
-        "statusBar.noFolderBackground": "#191A21",
+        "statusBar.background": "#000000",
+        "statusBar.foreground": "#ffffff",
+        "statusBar.debuggingBackground": "#ff0000",
+        "statusBar.debuggingForeground": "#161821",
+        "statusBar.noFolderBackground": "#ff0000",
         "statusBar.noFolderForeground": "#F8F8F2",
         "statusBarItem.prominentBackground": "#FF5555",
         "statusBarItem.prominentHoverBackground": "#FFB86C",
@@ -338,7 +332,7 @@
     // git clone git@github.com:pcwalton/vscode-powerline.git
     // at ~/.config/Code
     "vscode_custom_css.imports": [
-        "file:///home/haruki-goto/.config/Code/vscode-powerline/powerline.css"
+        "file:///home/haruki-goto/.config/Cursor/vscode-powerline/powerline.css"
     ],
     "explorer.confirmDragAndDrop": false,
     "go.useLanguageServer": true,
@@ -355,15 +349,13 @@
         "plaintext": false,
         "markdown": false,
         "scminput": false
-    }
-    // "vim.statusBarColors.insert": ["#ff0000", "#161821"],
-    // "vim.statusBarColors.visual": ["#ffff00", "#161821"],
-    // "vim.statusBarColors.visualline": ["#B4BE82", "#161821"],
-    // "vim.statusBarColors.visualblock": ["#B4BE82", "#161821"],
-    // "vim.statusBarColors.replace": ["#E2A478", "#161821"],
-    // "vim.statusBarColors.commandlineinprogress": ["#818596", "#161821"],
-    // "vim.statusBarColors.searchinprogressmode": ["#818596", "#161821"],
-    // "vim.statusBarColors.easymotionmode": ["#818596", "#161821"],
-    // "vim.statusBarColors.easymotioninputmode": ["#818596", "#161821"],
-    // "vim.statusBarColors.surroundinputmode": ["#818596", "#161821"]
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "vim.statusBarColorControl": false,
+    "vim.handleKeys": {
+        "<C-y>": false,
+    },
+    "extensions.ignoreRecommendations": true,
 }
