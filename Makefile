@@ -11,16 +11,32 @@ YELLOW := \033[0;33m
 BLUE := \033[0;34m
 NC := \033[0m # No Color
 
+# Check if command exists
+check_command = @if ! command -v $(1) >/dev/null 2>&1; then \
+	echo "$(RED)Error: $(1) is required but not installed.$(NC)"; \
+	exit 1; \
+fi
+
 # Error handling
 define handle_error
 	@if [ $$? -ne 0 ]; then \
-		echo "$(RED)Warning: $1$(NC)"; \
+		echo "$(RED)Error: $1$(NC)"; \
+		exit 1; \
 	fi
 endef
 
 # Default target
 .PHONY: setup
-setup: lang get-git-config apt-update-upgrade install-packages brave-browser nerd-fonts git-ssh stow nvim tmux zsh aqua download-links
+setup: check-prerequisites lang get-git-config apt-update-upgrade install-packages brave-browser nerd-fonts stow nvim tmux zsh aqua git-ssh download-links
+
+# Check prerequisites
+.PHONY: check-prerequisites
+check-prerequisites:
+	@echo "$(BLUE)Checking prerequisites...$(NC)"
+	$(call check_command,curl)
+	$(call check_command,git)
+	$(call check_command,sudo)
+	@echo "$(GREEN)All prerequisites are satisfied$(NC)"
 
 # System configuration
 .PHONY: lang
@@ -85,6 +101,7 @@ brave-browser:
 .PHONY: nerd-fonts
 nerd-fonts:
 	@echo "$(BLUE)Installing Nerd Fonts...$(NC)"
+	mkdir -p ~/.local/share/fonts
 	curl -L -O https://github.com/ryanoasis/nerd-fonts/releases/download/$(NERD_FONTS_VERSION)/Hack.zip
 	unzip Hack.zip -d ~/.local/share/fonts
 	fc-cache -fv
@@ -114,6 +131,7 @@ nvim:
 .PHONY: tmux
 tmux:
 	@echo "$(BLUE)Setting up Tmux...$(NC)"
+	mkdir -p ~/.tmux/plugins
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 	$(call handle_error,"Failed to setup Tmux")
 
@@ -123,20 +141,6 @@ zsh:
 	@echo "$(BLUE)Setting up Zsh...$(NC)"
 	curl -sL https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 	$(call handle_error,"Failed to setup Zsh")
-
-# Bash setup
-.PHONY: bash
-bash:
-	@echo "$(BLUE)Setting up Bash...$(NC)"
-	git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git
-	make -C ble.sh install PREFIX=~/.local
-
-	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
-	~/.bash_it/install.sh
-
-	bash-it enable plugin git sudo ssh
-	bash-it enable completion docker docker-compose ssh yarn
-	$(call handle_error,"Failed to setup Bash")
 
 # Aqua installation
 .PHONY: aqua
@@ -154,31 +158,12 @@ aqua:
 	fi
 	@echo "$(GREEN)aqua installation completed$(NC)"
 
-# Docker setup
-.PHONY: docker
-docker:
-	@echo "$(BLUE)Setting up Docker...$(NC)"
-	sudo mkdir -p /etc/apt/keyrings
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-	sudo chmod a+r /etc/apt/keyrings/docker.gpg
-	UBU_CODENAME=$$(source /etc/os-release && echo "$$UBUNTU_CODENAME"); \
-	ARCH=$$(dpkg --print-architecture); \
-	echo "deb [arch=$$ARCH signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $$UBU_CODENAME stable" \
-		| sudo tee /etc/apt/sources.list.d/docker.list
-	sudo apt-get update
-	sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-	$(call handle_error,"Failed to setup Docker")
-
 # Stow setup
 .PHONY: stow
 stow:
+	@echo "$(BLUE)Setting up dotfiles with stow...$(NC)"
 	stow -d stow -t ~ zsh nvim tmux
-
-# powerline
-.PHONY: cursor-powerline
-cursor-powerline:
-	git clone git@github.com:pcwalton/vscode-powerline.git ~/.config/Cursor
-
+	$(call handle_error,"Failed to setup dotfiles with stow")
 
 # Download links
 .PHONY: download-links
