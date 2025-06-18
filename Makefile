@@ -20,7 +20,7 @@ endef
 
 # Default target
 .PHONY: setup
-setup: lang get-git-config apt-update-upgrade install-packages brave-browser nerd-fonts git-ssh nvim tmux zsh aqua download-links
+setup: lang get-git-config apt-update-upgrade install-packages brave-browser nerd-fonts git-ssh stow nvim tmux zsh aqua download-links
 
 # System configuration
 .PHONY: lang
@@ -70,7 +70,8 @@ install-packages:
 		bat \
 		ripgrep \
 		fd-find \
-		tmux
+		tmux \
+		stow
 	$(call handle_error,"Failed to install packages")
 
 # Browser installation
@@ -114,7 +115,6 @@ nvim:
 tmux:
 	@echo "$(BLUE)Setting up Tmux...$(NC)"
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-	cp ./tmux.conf ~/.tmux.conf
 	$(call handle_error,"Failed to setup Tmux")
 
 # Zsh setup
@@ -122,7 +122,6 @@ tmux:
 zsh:
 	@echo "$(BLUE)Setting up Zsh...$(NC)"
 	curl -sL https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-	cp ./zshrc ~/.zshrc
 	$(call handle_error,"Failed to setup Zsh")
 
 # Bash setup
@@ -170,6 +169,13 @@ docker:
 	sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 	$(call handle_error,"Failed to setup Docker")
 
+# Stow setup
+.PHONY: stow
+stow:
+	stow -d stow -t ~ zsh nvim tmux
+
+# powerline
+.PHONY: cursor-powerline
 cursor-powerline:
 	git clone git@github.com:pcwalton/vscode-powerline.git ~/.config/Cursor
 
