@@ -170,6 +170,10 @@ docker:
 	sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 	$(call handle_error,"Failed to setup Docker")
 
+cursor-powerline:
+	git clone git@github.com:pcwalton/vscode-powerline.git ~/.config/Cursor
+
+
 # Download links
 .PHONY: download-links
 download-links:
