@@ -122,9 +122,8 @@ git-ssh:
 .PHONY: nvim
 nvim:
 	@echo "$(BLUE)Setting up Neovim...$(NC)"
-	mkdir -p ~/.local/share/nvim/site/autoload
-	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim \
-		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	sh -c 'curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 	$(call handle_error,"Failed to setup Neovim")
 
 # Tmux setup

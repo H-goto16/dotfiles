@@ -1,0 +1,25 @@
+[global_config]
+  window_state = maximise
+  borderless = True
+  inactive_color_offset = 1.0
+[keybindings]
+  go_up = ""
+  go_down = ""
+[profiles]
+  [[default]]
+    font = Hack Nerd Font Propo 16
+    foreground_color = "#ffffff"
+    show_titlebar = False
+    scrollbar_position = hidden
+    scrollback_infinite = True
+    use_system_font = False
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+[plugins]
+
