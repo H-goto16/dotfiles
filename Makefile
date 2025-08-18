@@ -27,7 +27,7 @@ endef
 
 # Default target
 .PHONY: setup
-setup: check-prerequisites lang get-git-config apt-update-upgrade install-packages brave-browser nerd-fonts stow nvim tmux zsh aqua git-ssh download-links
+setup: check-prerequisites lang get-git-config apt-update-upgrade install-packages nerd-fonts stow nvim tmux zsh aqua git-ssh download-links
 
 # Check prerequisites
 .PHONY: check-prerequisites
