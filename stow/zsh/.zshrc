@@ -13,7 +13,7 @@ export HISTSIZE=1000000
 export SAVEHIST=1000000
 export HISTFILE=${HOME}/.zsh_history
 
-export NPM_GITHUB_TOKEN=REMOVED_TOKEN
+export NPM_GITHUB_TOKEN=  # set your token here (do not commit)
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 export ANDROID_HOME=$HOME/Android/Sdk
