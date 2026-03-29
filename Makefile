@@ -27,7 +27,7 @@ endef
 
 # Default target
 .PHONY: setup
-setup: check-prerequisites lang get-git-config apt-update-upgrade install-packages nerd-fonts stow nvim tmux zsh aqua git-ssh download-links
+setup: check-prerequisites lang get-git-config apt-update-upgrade install-packages nerd-fonts stow nvim tmux zsh aqua git-ssh lazygit download-links
 
 # Check prerequisites
 .PHONY: check-prerequisites
@@ -163,6 +163,16 @@ stow:
 	@echo "$(BLUE)Setting up dotfiles with stow...$(NC)"
 	stow -d stow -t ~ zsh nvim tmux
 	$(call handle_error,"Failed to setup dotfiles with stow")
+
+# Lazygit installation
+.PHONY: lazygit
+lazygit:
+	@echo "$(BLUE)Installing lazygit...$(NC)"
+	$(eval LAZYGIT_VERSION := $(shell curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*'))
+	curl -Lo /tmp/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v$(LAZYGIT_VERSION)/lazygit_$(LAZYGIT_VERSION)_Linux_x86_64.tar.gz"
+	tar xf /tmp/lazygit.tar.gz -C /tmp lazygit
+	sudo install /tmp/lazygit -D -t /usr/local/bin/
+	$(call handle_error,"Failed to install lazygit")
 
 # Download links
 .PHONY: download-links
