@@ -13,7 +13,7 @@ export HISTSIZE=1000000
 export SAVEHIST=1000000
 export HISTFILE=${HOME}/.zsh_history
 
-export NPM_GITHUB_TOKEN=
+export NPM_GITHUB_TOKEN=REMOVED_TOKEN
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 export ANDROID_HOME=$HOME/Android/Sdk
@@ -22,7 +22,8 @@ export JAVA_HOME=/opt/android-studio/jbr
 export PATH=$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH
 export PNPM_HOME="/home/haruki-goto/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
-export PATH="/home/haruki-goto/.local/share/aquaproj-aqua/bin:$PATH"
+# aqua は無効化（有効にする場合は下の行のコメントを外す）
+# export PATH="/home/haruki-goto/.local/share/aquaproj-aqua/bin:$PATH"
 
 # ========================================
 # zplug 初期化とプラグイン
@@ -179,7 +180,6 @@ alias yi='y install'
 alias yga='y global add'
 alias ya='y add'
 alias n='bash -c "if [[ $(gsettings get org.gnome.settings-daemon.plugins.color night-light-enabled) == \"true\" ]]; then gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false; else gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true; fi"'
-alias cursor="~/Application/squashfs-root/AppRun --no-sandbox"
 
 # ========================================
 # 関数
@@ -200,3 +200,4 @@ bindkey '^R' history-incremental-pattern-search-backward
 bindkey ';5C' forward-word
 bindkey ';5D' backward-word
 
+export PATH="$HOME/.local/bin:$PATH"
