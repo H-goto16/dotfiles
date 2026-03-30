@@ -46,6 +46,10 @@ local map = vim.keymap.set
 
 map({ "n", "v" }, "<C-s>", ":w<CR>",        { noremap = true, silent = true })
 map("i",          "<C-s>", "<Esc>:w<CR>a",  { noremap = true, silent = true })
+map("n",          "<C-z>", "u",             { noremap = true, silent = true })
+map("i",          "<C-z>", "<Esc>ui",       { noremap = true, silent = true })
+map("n",          "<C-y>", "<C-r>",         { noremap = true, silent = true })
+map("i",          "<C-y>", "<Esc><C-r>i",   { noremap = true, silent = true })
 map("n", "<A-Up>",   ":m .-2<CR>==",            { noremap = true, silent = true })
 map("n", "<A-Down>", ":m .+1<CR>==",            { noremap = true, silent = true })
 map("v", "<A-Up>",   ":m '<-2<CR>gv=gv",        { noremap = true, silent = true })
@@ -77,30 +81,19 @@ end, {})
 require("lazy").setup({
 
   -- ----------------------------------------------------------
-  -- Theme: Catppuccin Mocha
+  -- Theme: VSCode Dark
   -- ----------------------------------------------------------
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    "Mofiqul/vscode.nvim",
     priority = 1000,
     config = function()
-      require("catppuccin").setup({
-        flavour = "mocha",
-        integrations = {
-          cmp              = true,
-          gitsigns         = true,
-          nvimtree         = true,
-          treesitter       = true,
-          telescope        = { enabled = true },
-          bufferline       = true,
-          rainbow_delimiters = true,
-          indent_blankline = { enabled = true },
-          notify           = true,
-          which_key        = true,
-          lsp_trouble      = true,
-        },
+      require("vscode").setup({
+        style = "dark",
+        transparent = false,
+        italic_comments = true,
+        disable_nvimtree_bg = true,
       })
-      vim.cmd.colorscheme("catppuccin")
+      vim.cmd.colorscheme("vscode")
     end,
   },
 
@@ -176,7 +169,7 @@ require("lazy").setup({
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      "hrsh7th/cmp-nvim-lsp",
+      "saghen/blink.cmp",
     },
     config = function()
       require("mason").setup({ ui = { border = "rounded" } })
@@ -197,6 +190,7 @@ require("lazy").setup({
           map("n",          "gi",          vim.lsp.buf.implementation,  opts)
           map("n",          "gr",          vim.lsp.buf.references,      opts)
           map("n",          "K",           vim.lsp.buf.hover,           opts)
+          map("n",          "gh",          vim.lsp.buf.hover,           opts)
           map("n",          "<F2>",        vim.lsp.buf.rename,          opts)
           map({ "n", "v" }, "<leader>rn",  vim.lsp.buf.rename,          opts)
           map({ "n", "v" }, "<leader>a",   vim.lsp.buf.code_action,     opts)
@@ -218,9 +212,9 @@ require("lazy").setup({
         end,
       })
 
-      -- 全サーバー共通: capabilities (nvim-cmp連携)
+      -- 全サーバー共通: capabilities (blink.cmp連携)
       vim.lsp.config("*", {
-        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+        capabilities = require("blink.cmp").get_lsp_capabilities(),
       })
 
       -- TypeScript / TSX: inlay hints
@@ -274,72 +268,35 @@ require("lazy").setup({
   },
 
   -- ----------------------------------------------------------
-  -- Completion: nvim-cmp
+  -- Completion: blink.cmp
   -- ----------------------------------------------------------
   {
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
+    version = "*",
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
       "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
-      "onsails/lspkind.nvim",
     },
     config = function()
-      local cmp     = require("cmp")
-      local luasnip = require("luasnip")
-      local lspkind = require("lspkind")
-
       require("luasnip.loaders.from_vscode").lazy_load()
-
-      cmp.setup({
-        snippet = {
-          expand = function(args) luasnip.lsp_expand(args.body) end,
+      require("blink.cmp").setup({
+        keymap = {
+          preset    = "default",
+          ["<Tab>"]     = { "select_next", "snippet_forward", "fallback" },
+          ["<S-Tab>"]   = { "select_prev", "snippet_backward", "fallback" },
+          ["<CR>"]      = { "accept", "fallback" },
+          ["<C-Space>"] = { "show", "fallback" },
+          ["<C-f>"]     = { "scroll_documentation_down", "fallback" },
+          ["<C-b>"]     = { "scroll_documentation_up", "fallback" },
         },
-        mapping = cmp.mapping.preset.insert({
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<CR>"]    = cmp.mapping.confirm({ select = true }),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-f>"]   = cmp.mapping.scroll_docs(4),
-          ["<C-b>"]   = cmp.mapping.scroll_docs(-4),
-        }),
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "path" },
-        }, {
-          { name = "buffer" },
-        }),
-        formatting = {
-          format = lspkind.cmp_format({
-            mode       = "symbol_text",
-            maxwidth   = 50,
-            ellipsis_char = "...",
-          }),
+        snippets  = { preset = "luasnip" },
+        sources   = { default = { "lsp", "path", "snippets", "buffer" } },
+        completion = {
+          documentation = { auto_show = true },
+          accept        = { auto_brackets = { enabled = true } },
+          menu          = { border = "rounded" },
         },
-        window = {
-          completion    = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
-        },
+        signature = { enabled = true, window = { border = "rounded" } },
       })
     end,
   },
@@ -380,16 +337,19 @@ require("lazy").setup({
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      require("nvim-tree").setup({ view = { side = "right" } })
+      require("nvim-tree").setup({
+        view = { side = "right" },
+        renderer = { indent_width = 1 },
+      })
       map("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
     end,
   },
 
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons", "catppuccin/nvim" },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      require("lualine").setup({ options = { theme = "catppuccin-mocha" } })
+      require("lualine").setup({ options = { theme = "vscode" } })
     end,
   },
 
@@ -413,10 +373,7 @@ require("lazy").setup({
             return " " .. icon .. count
           end,
         },
-        highlights = (function()
-          local ok, mod = pcall(require, "catppuccin.groups.integrations.bufferline")
-          return ok and mod.get() or {}
-        end)(),
+        highlights = {},
       })
     end,
   },
@@ -441,11 +398,25 @@ require("lazy").setup({
     end,
   },
 
-  -- 通知
+  -- 通知 / コマンドライン UI
   {
-    "rcarriga/nvim-notify",
+    "folke/noice.nvim",
+    dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
     config = function()
-      vim.notify = require("notify")
+      require("noice").setup({
+        lsp = {
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"]                = true,
+          },
+        },
+        presets = {
+          bottom_search        = true,
+          command_palette      = true,
+          long_message_to_split = true,
+          lsp_doc_border       = true,
+        },
+      })
     end,
   },
 
@@ -482,13 +453,33 @@ require("lazy").setup({
   -- ----------------------------------------------------------
   {
     "lewis6991/gitsigns.nvim",
-    config = function() require("gitsigns").setup() end,
+    config = function()
+      require("gitsigns").setup({
+        on_attach = function(bufnr)
+          local gs   = require("gitsigns")
+          local opts = { buffer = bufnr, silent = true }
+          map("n", "]c",          gs.next_hunk,                         opts)
+          map("n", "[c",          gs.prev_hunk,                         opts)
+          map("n", "<leader>hp",  gs.preview_hunk,                      opts)
+          map("n", "<leader>hr",  gs.reset_hunk,                        opts)
+          map("n", "<leader>hb",  gs.blame_line,                        opts)
+        end,
+      })
+    end,
   },
   { "kdheepak/lazygit.nvim" },
 
   -- ----------------------------------------------------------
   -- ナビゲーション / 検索
   -- ----------------------------------------------------------
+  {
+    "folke/flash.nvim",
+    config = function()
+      require("flash").setup()
+      map({ "n", "x", "o" }, "s", function() require("flash").jump() end,       { silent = true })
+      map({ "n", "x", "o" }, "S", function() require("flash").treesitter() end, { silent = true })
+    end,
+  },
   {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -548,15 +539,3 @@ require("lazy").setup({
   ui = { border = "rounded" },
 })
 
--- nvim-autopairs と nvim-cmp の統合 (両方ロード後)
-vim.api.nvim_create_autocmd("User", {
-  pattern = "LazyDone",
-  once    = true,
-  callback = function()
-    local ok_pairs, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
-    local ok_cmp,  cmp            = pcall(require, "cmp")
-    if ok_pairs and ok_cmp then
-      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-    end
-  end,
-})

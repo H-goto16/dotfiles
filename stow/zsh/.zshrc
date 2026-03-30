@@ -201,3 +201,10 @@ bindkey ';5C' forward-word
 bindkey ';5D' backward-word
 
 export PATH="$HOME/.local/bin:$PATH"
+
+# ========================================
+# WSL 固有設定
+# ========================================
+if [[ $(uname -r) =~ [Mm]icrosoft ]]; then
+  export PATH="/mnt/c/tools:$PATH"  # im-select.exe 置き場
+fi
