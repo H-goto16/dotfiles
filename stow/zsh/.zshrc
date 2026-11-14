@@ -1,11 +1,4 @@
 # ========================================
-# Powerlevel10k Instant Prompt
-# ========================================
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# ========================================
 # 基本環境変数
 # ========================================
 export LANG=en_US.UTF-8
@@ -20,10 +13,9 @@ export ANDROID_HOME=$HOME/Android/Sdk
 export ANDROID_SDK_ROOT=$ANDROID_HOME
 export JAVA_HOME=/opt/android-studio/jbr
 export PATH=$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH
-export PNPM_HOME="/home/haruki-goto/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
-# aqua は無効化（有効にする場合は下の行のコメントを外す）
-# export PATH="/home/haruki-goto/.local/share/aquaproj-aqua/bin:$PATH"
+export PATH="$HOME/.local/share/aquaproj-aqua/bin:$PATH"
 
 # ========================================
 # zplug 初期化とプラグイン
@@ -37,7 +29,6 @@ zplug "zsh-users/zsh-completions", defer:2
 zplug "plugins/git", from:oh-my-zsh
 zplug "~/.zsh", from:local, use:"git-completion.zsh", defer:1
 zplug "lukechilds/zsh-better-npm-completion"
-zplug "ajeetdsouza/zoxide", use:"zoxide.zsh"
 zplug "junegunn/fzf", hook-build:"./install --bin"
 zplug "Aloxaf/fzf-tab"
 zplug "zsh-users/zsh-history-substring-search"
@@ -49,14 +40,10 @@ fi
 zplug load
 
 # fzf補完
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# zoxide初期化
-eval "$(zoxide init zsh)"
+[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
 
 # fzf-tab 設定
 setopt no_menu_complete
-unsetopt menu_complete
 
 # npm補完をpnpmにも適用
 compdef pnpm=npm
@@ -88,6 +75,10 @@ setopt prompt_subst
 # ========================================
 autoload -Uz compinit
 compinit
+
+# zoxide初期化 (compinit の後)
+eval "$(zoxide init zsh --cmd cd)"
+
 autoload -Uz select-word-style
 select-word-style default
 
@@ -95,13 +86,11 @@ zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*' format '%B%F{blue}%d%f%b'
 zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
-zstyle ':completion:*:(cd|less):*' matcher 'm:{a-z}={A-Z}'
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' ignore-parents parent pwd ..
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 zstyle ':completion:*' completer _complete _approximate _prefix _correct
 zstyle ':completion:*:approximate' max-errors 4 NUMERIC
-zstyle ':autocomplete:*' add-space executables aliases functions builtins reserved-words commands
 
 # ========================================
 # プロンプトと Git branch 表示
@@ -112,18 +101,20 @@ colors
 PROMPT="%f%b%F{45}%~%f[%F{227}%?%f] > "
 function rprompt-git-current-branch {
   local branch_name st branch_status
+  local -a lines
   if [ ! -e  ".git" ]; then return; fi
-  branch_name=`git rev-parse --abbrev-ref HEAD 2>/dev/null`
-  st=`git status 2>/dev/null`
-  if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
+  branch_name=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+  st=$(git status 2>/dev/null)
+  lines=("${(@f)st}")
+  if (( ${lines[(I)nothing to*]} )); then
     branch_status="%F{green}"
-  elif [[ -n `echo "$st" | grep "^Untracked files"` ]]; then
+  elif (( ${lines[(I)Untracked files*]} )); then
     branch_status="%F{red}?"
-  elif [[ -n `echo "$st" | grep "^Changes not staged for commit"` ]]; then
+  elif (( ${lines[(I)Changes not staged for commit*]} )); then
     branch_status="%F{red}+"
-  elif [[ -n `echo "$st" | grep "^Changes to be committed"` ]]; then
+  elif (( ${lines[(I)Changes to be committed*]} )); then
     branch_status="%F{yellow}!"
-  elif [[ -n `echo "$st" | grep "^rebase in progress"` ]]; then
+  elif (( ${lines[(I)rebase in progress*]} )); then
     echo "%F{red}!(no branch)"
     return
   else
@@ -180,6 +171,8 @@ alias yi='y install'
 alias yga='y global add'
 alias ya='y add'
 alias n='bash -c "if [[ $(gsettings get org.gnome.settings-daemon.plugins.color night-light-enabled) == \"true\" ]]; then gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false; else gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true; fi"'
+alias uctecvpnup='nmcli connection up "出退勤システムVPN"'
+alias uctecvpndown='nmcli connection down "出退勤システムVPN"'
 
 # ========================================
 # 関数
@@ -196,9 +189,8 @@ export LS_COLORS='di=01;33'
 # ========================================
 # キーバインド
 # ========================================
-bindkey '^R' history-incremental-pattern-search-backward
-bindkey ';5C' forward-word
-bindkey ';5D' backward-word
+bindkey '^[[1;5C' forward-word
+bindkey '^[[1;5D' backward-word
 
 export PATH="$HOME/.local/bin:$PATH"
 
